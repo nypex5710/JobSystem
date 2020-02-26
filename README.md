@@ -1,4 +1,4 @@
-<h1>JobSystem<img src="https://i.hizliresim.com/vyz3Xr.jpg" height="64" width="64" align="left"></img></h1>
+<h1>JobSystem<img src="https://github.com/nypex5710/JobSystem/blob/master/logo.png" height="64" width="64" align="left"></img></h1>
 <br>
 <h1>Commands</h1>
 <table>
