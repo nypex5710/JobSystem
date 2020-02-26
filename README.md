@@ -1,5 +1,8 @@
 <h1>JobSystem<img src="https://github.com/nypex5710/JobSystem/blob/master/logo.png" height="64" width="64" align="left"></img></h1>
 <br>
+<h1>Support Language</h1>
+- [✔] Turkish<br>
+<BR>
 <h1>Commands</h1>
 <table>
   <tr>
@@ -7,19 +10,23 @@
     <th>Description</th>
   </tr>
   <tr>
-    <th>/infection create</th>
-    <th>Create a new game</th>
+    <th>/meslek</th>
+    <th>Select job</th>
+  </tr>
+  <tr>
+    <th>/bank</th>
+    <th>Take job money</th>
   </tr>
   </table>
 <br>
-<h1>How do you play ?</h1>
-<p>All players join a arena with speed potion effect. One Player randomly spawns with a potato in there inventory. They have 10 seconds (Configurable) to give up the potato by right clicking a player. The player who has the potato will have a TNT block on his head, and will also be shooting fireworks. If he hits another player, that player becomes the potato. Whoever has the potato at the end of the timer blows up and is sent to the spectator box. When one player is left, they will get 10 (Configurable) credits which he can use to spawn in perks before a game.</p>
+<h1>How do you work ?</h1>
+<p>Bir mesleğe katıldıktan sonra günlük olarak giriş yapan oyunculara farklı görevler verir. Görevler tamamlandıkça kazanılan para banka hesabına aktarılır ve 3 günde bir para hesaptan çekilebilir.</p>
 <br>
 <h1>Finished & Planned Features</h1>
- <h2>Game Create</h2>
-  - [✔] Backup arena world<br>
-  - [✔] Select arena coordinat<br>
-  - [✔] Create arena join sign
+ <h2>Job System</h2>
+  - [✔] Select job<br>
+  - [✔] Take daily mission<br>
+  - [✔] Make money after mission
   <br>
-  <h2>In Game</h2>
-  - [✔] Tap to join game
+  <h2>Bank</h2>
+  - [✔] Withdraw money from the bank
