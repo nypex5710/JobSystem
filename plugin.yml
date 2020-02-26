@@ -1,0 +1,11 @@
+name: Job
+main: Nypex5710\Job\JMain
+api: [3.0.0, 4.0.0]
+version: 1.0
+author: Nypex5710
+
+commands:
+  meslek:
+    description: Meslek Menüsünü Açar
+  banka:
+    description: Banka Menüsünü Açar
