@@ -17,7 +17,7 @@ class GUI{
             ->setName($name)
             ->setListener([$this, "onItemEvent"])
             ->setInventoryCloseListener(function(Player $player): void{
-                //kapanışta ne olsun
+                //close
             });
     }
 
@@ -26,7 +26,7 @@ class GUI{
     }
 
     public function onItemEvent(Player $player, Item $itemClickedOn): bool{
-        if($itemClickedOn->getCustomName() == "§6Oduncu\n\n§eOduncu mesleğini seçmek için envanterine sürükle."){
+        if($itemClickedOn->getCustomName() == JMain::getInstance()->message["woodcutter"]){
             $required = rand(1, 10);
             //$money = $required*3;
             $name = $player->getLowerCaseName();
@@ -40,10 +40,10 @@ class GUI{
             $jobdb->bindValue(":birdahakigorev", $bdg);
             $jobdb->bindValue(":alindimi", "evet");
             $jobdb->execute();
-            $player->sendMessage("§8» §aİşte ilk görevin: §c$required §aadet odun kır.");
+            $player->sendMessage(JMain::getInstance()->message["take-mission-woodcutter"] . $required);
             $player->removeWindow($this->menu->getInventory($player));
         }
-        if($itemClickedOn->getCustomName() == "§6Madenci\n\n§eMadenci mesleğini seçmek için envanterine sürükle."){
+        if($itemClickedOn->getCustomName() == JMain::getInstance()->message["miner"]){
             $required = rand(1, 10);
             $name = $player->getLowerCaseName();
             $jobName = "madenci";
@@ -56,10 +56,10 @@ class GUI{
             $jobdb->bindValue(":birdahakigorev", $bdg);
             $jobdb->bindValue(":alindimi", "evet");
             $jobdb->execute();
-            $player->sendMessage("§8» §aİşte ilk görevin: §c$required §aadet taş kaz.");
+            $player->sendMessage(JMain::getInstance()->message["take-mission-miner"] . $required);
             $player->removeWindow($this->menu->getInventory($player));
         }
-        if($itemClickedOn->getCustomName() == "§6Bahçıvan\n\n§eBahçıvan mesleğini seçmek için envanterine sürükle."){
+        if($itemClickedOn->getCustomName() == JMain::getInstance()->message["gardener"]){
           $required = rand(1, 10);
           $name = $player->getLowerCaseName();
           $jobName = "bahcivan";
@@ -72,10 +72,10 @@ class GUI{
           $jobdb->bindValue(":birdahakigorev", $bdg);
           $jobdb->bindValue(":alindimi", "evet");
           $jobdb->execute();
-          $player->sendMessage("§8» §aİşte ilk görevin: §c$required §aadet fidan dik.");
+          $player->sendMessage(JMain::getInstance()->message["take-mission-gardener"] . $required);
           $player->removeWindow($this->menu->getInventory($player));
         }
-        if($itemClickedOn->getCustomName() == "§6Katil\n\n§eKatil mesleğini seçmek için envanterine sürükle."){
+        if($itemClickedOn->getCustomName() == JMain::getInstance()->message["murder"]){
           $required = rand(1, 10);
           $name = $player->getLowerCaseName();
           $jobName = "katil";
@@ -88,10 +88,10 @@ class GUI{
           $jobdb->bindValue(":birdahakigorev", $bdg);
           $jobdb->bindValue(":alindimi", "evet");
           $jobdb->execute();
-          $player->sendMessage("§8» §aİşte ilk görevin: §c$required §aadet insan öldür.");
+          $player->sendMessage(JMain::getInstance()->message["take-mission-murder"] . $required);
           $player->removeWindow($this->menu->getInventory($player));
         }
-        if($itemClickedOn->getCustomName() == "§6Mezarcı\n\n§eMezarcı mesleğini seçmek için envanterine sürükle."){
+        if($itemClickedOn->getCustomName() == JMain::getInstance()->message["dirter"]){
           $required = rand(1, 10);
           $name = $player->getLowerCaseName();
           $jobName = "mezarci";
@@ -104,7 +104,7 @@ class GUI{
           $jobdb->bindValue(":birdahakigorev", $bdg);
           $jobdb->bindValue(":alindimi", "evet");
           $jobdb->execute();
-          $player->sendMessage("§8» §aİşte ilk görevin: §c$required §aadet toprak kaz.");
+          $player->sendMessage(JMain::getInstance()->message["take-mission-dirter"] . $required);
           $player->removeWindow($this->menu->getInventory($player));
         }
         return true;

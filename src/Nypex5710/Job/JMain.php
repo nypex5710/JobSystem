@@ -13,6 +13,7 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\command\commandSender;
 use pocketmine\command\Command;
 use pocketmine\item\Item;
+use pocketmine\utils\Config;
 
 use onebone\economyapi\EconomyAPI;
 use Nypex5710\Job\formapi\SimpleForm;
@@ -42,6 +43,26 @@ class JMain extends PluginBase implements Listener{
         if(!InvMenuHandler::isRegistered()){
             InvMenuHandler::register($this);
         }
+        $this->message = (new Config($this->getDataFolder() . "message.yml", Config::YAML, array(
+          "take-mission-woodcutter" => "[WoodCutter] New mission received, cut wood: ",
+          "take-mission-miner" => "[Miner] New mission received, break stone: ",
+          "take-mission-gardener" => "[Gardener] New mission received, plant sapling: ",
+          "take-mission-murder" => "[Murder] New mission received, kill player: ",
+          "take-mission-dirter" => "[Dirter] New mission received, dig dirt: ",
+          "mission-success" => "You have successfully completed the mission, your money has been transferred to the bank account",
+          "time-is-not-over" => "Time required to withdraw money from the bank has not expired.",
+          "add-money-bank" => " added to bank account.",
+          "already-select-job" => "You have already chosen a job.",
+          "bank-menu" => "Bank Menu",
+          "you-money" => "You Money: ",
+          "take-money" => "Withdraw Money",
+          "job-menu" => "Job Menu",
+          "woodcutter" => "WoodCutter",
+          "miner" => "Miner",
+          "gardener" => "Gardener",
+          "murder" => "Murder",
+          "dirter" => "Dirter",
+        )))->getAll();
     }
 
     public function onDisable(): void{
@@ -78,7 +99,7 @@ class JMain extends PluginBase implements Listener{
           $bdg = strtotime("+1 day", time());
           $jobdb = $this->db->prepare("UPDATE jobPlayers SET gorev = $required AND yapilan = 0 AND birdahakigorev = $bdg WHERE player = '{$player->getLowerCaseName()}'");
           $jobdb->execute();
-          $player->sendMessage("§Hey sen, yeni görevin seni bekliyor §f$required §aadet odun kır.");
+          $player->sendMessage($this->message["take-mission-woodcutter"] . $required);
         }
       }
       if($msorgu){
@@ -87,7 +108,7 @@ class JMain extends PluginBase implements Listener{
           $bdg = strtotime("+1 day", time());
           $jobdb = $this->db->prepare("UPDATE jobPlayers SET gorev = $required AND yapilan = 0 AND birdahakigorev = $bdg WHERE player = '{$player->getLowerCaseName()}'");
           $jobdb->execute();
-          $player->sendMessage("§Hey sen, yeni görevin seni bekliyor §f$required §aadet taş kaz.");
+          $player->sendMessage($this->message["take-mission-miner"] . $required);
         }
       }
       if($bsorgu){
@@ -96,7 +117,7 @@ class JMain extends PluginBase implements Listener{
           $bdg = strtotime("+1 day", time());
           $jobdb = $this->db->prepare("UPDATE jobPlayers SET gorev = $required AND yapilan = 0 AND birdahakigorev = $bdg WHERE player = '{$player->getLowerCaseName()}'");
           $jobdb->execute();
-          $player->sendMessage("§Hey sen, yeni görevin seni bekliyor §f$required §aadet fidan dik.");
+          $player->sendMessage($this->message["take-mission-gardener"] . $required);
         }
       }
       if($ksorgu){
@@ -105,7 +126,7 @@ class JMain extends PluginBase implements Listener{
           $bdg = strtotime("+1 day", time());
           $jobdb = $this->db->prepare("UPDATE jobPlayers SET gorev = $required AND yapilan = 0 AND birdahakigorev = $bdg WHERE player = '{$player->getLowerCaseName()}'");
           $jobdb->execute();
-          $player->sendMessage("§Hey sen, yeni görevin seni bekliyor §f$required §aadet insan öldür.");
+          $player->sendMessage($this->message["take-mission-murder"] . $required);
         }
       }
       if($msorgu){
@@ -114,7 +135,7 @@ class JMain extends PluginBase implements Listener{
           $bdg = strtotime("+1 day", time());
           $jobdb = $this->db->prepare("UPDATE jobPlayers SET gorev = $required AND yapilan = 0 AND birdahakigorev = $bdg WHERE player = '{$player->getLowerCaseName()}'");
           $jobdb->execute();
-          $player->sendMessage("§Hey sen, yeni görevin seni bekliyor §f$required §aadet toprak kaz.");
+          $player->sendMessage($this->message["take-mission-dirter"] . $required);
         }
       }
     }
@@ -135,7 +156,7 @@ class JMain extends PluginBase implements Listener{
               $array = $sorgu->fetchArray(SQLITE3_ASSOC);
               $gorev = strval($array['gorev']);
               $para = $gorev * 3;
-              $player->sendMessage("§aVerilen görevi başarı ile tamamlayarak §f$para §aTL kazandın.\n§aBanka hesabınızdan parayı çekebilirsiniz.");
+              $player->sendMessage($this->message["mission-success"]);
               //EconomyAPI::getInstance()->addMoney($player, $para);
 
               $bank = $this->bank->prepare("UPDATE bankPlayers SET para = para + $para WHERE player = '{$olduren->getLowerCaseName()}'");
@@ -169,7 +190,7 @@ class JMain extends PluginBase implements Listener{
         if($bahcivansorgu){
           if($herseytammi){
             $para = $gorev * 3;
-            $player->sendMessage("§aVerilen görevi başarı ile tamamlayarak §f$para §aTL kazandın.\n§aBanka hesabınızdan parayı çekebilirsiniz.");
+            $player->sendMessage($this->message["mission-success"]);
             //EconomyAPI::getInstance()->addMoney($player, $para);
 
             $bank = $this->bank->prepare("UPDATE bankPlayers SET para = para + $para WHERE player = '{$player->getLowerCaseName()}'");
@@ -205,7 +226,7 @@ class JMain extends PluginBase implements Listener{
             if($oduncusorgu){
               if($herseytammi){
                 $para = $gorev * 3;
-                $player->sendMessage("§aVerilen görevi başarı ile tamamlayarak §f$para §aTL kazandın.\n§aBanka hesabınızdan parayı çekebilirsiniz.");
+                $player->sendMessage($this->message["mission-success"]);
                 //EconomyAPI::getInstance()->addMoney($player, $para);
 
                 $bank = $this->bank->prepare("UPDATE bankPlayers SET para = para + $para WHERE player = '{$player->getLowerCaseName()}'");
@@ -223,7 +244,7 @@ class JMain extends PluginBase implements Listener{
           if($madencisorgu){
             if($herseytammi){
               $para = $gorev * 3;
-              $player->sendMessage("§aVerilen görevi başarı ile tamamlayarak §f$para §aTL kazandın.\n§aBanka hesabınızdan parayı çekebilirsiniz.");
+              $player->sendMessage($this->message["mission-success"]);
               //EconomyAPI::getInstance()->addMoney($player, $para);
 
               $bank = $this->bank->prepare("UPDATE bankPlayers SET para = para + $para WHERE player = '{$player->getLowerCaseName()}'");
@@ -241,7 +262,7 @@ class JMain extends PluginBase implements Listener{
           if($mezarcisorgu){
             if($herseytammi){
               $para = $gorev * 3;
-              $player->sendMessage("§aVerilen görevi başarı ile tamamlayarak §f$para §aTL kazandın.\n§aBanka hesabınızdan parayı çekebilirsiniz.");
+              $player->sendMessage($this->message["mission-success"]);
               //EconomyAPI::getInstance()->addMoney($player, $para);
 
               $bank = $this->bank->prepare("UPDATE bankPlayers SET para = para + $para WHERE player = '{$player->getLowerCaseName()}'");
@@ -276,24 +297,24 @@ class JMain extends PluginBase implements Listener{
             $array = $sorgu->fetchArray(SQLITE3_ASSOC);
             $para = strval($array['para']);
             EconomyAPI::getInstance()->addMoney($player, $para);
-            $player->sendMessage("§f$para TL §ahesabınıza eklendi.");
+            $player->sendMessage("§f$para" . $this->message["add-money-bank"]);
             $bdz = strtotime("+3 day", time());
             $banka = $this->bank->prepare("UPDATE bankPlayers SET alinacaksure = $bdz WHERE player = '{$player->getLowerCaseName()}'");
             $banka->execute();
           }else{
-            $player->sendMessage("§cParanızı çekmek için gereken süre henüz dolmamış.");
+            $player->sendMessage($this->message["time-is-not-over"]);
           }
           break;
         }
       });
-      $form->setTitle("§6Banka Menüsü");
+      $form->setTitle($this->message["bank-menu"]);
 
       $sorgu = $this->bank->query("SELECT * FROM bankPlayers WHERE player = '{$player->getLowerCaseName()}'");
       $array = $sorgu->fetchArray(SQLITE3_ASSOC);
       $para = strval($array['para']);
 
-      $form->setContent("§aBankadaki Paranız: §f$para TL");
-      $form->addButton("Paranı Çek", 1, "https://gamepedia.cursecdn.com/minecraft_gamepedia/0/01/MCoin.png");
+      $form->setContent($this->message["you-money"]." §f$para TL");
+      $form->addButton($this->message["take-money"], 1, "https://gamepedia.cursecdn.com/minecraft_gamepedia/0/01/MCoin.png");
       $form->sendToPlayer($player);
     }
 
@@ -301,14 +322,14 @@ class JMain extends PluginBase implements Listener{
         if($cmd->getName() == "meslek"){
             $meslekSahibimi = $this->db->query("SELECT * FROM jobPlayers WHERE player = '{$cs->getLowerCaseName()}'")->fetchArray(SQLITE3_ASSOC);
             if($meslekSahibimi){
-                $cs->sendMessage("Zaten bir meslek seçmişsin.");
+                $cs->sendMessage($this->message["already-select-job"]);
             }else{
-                $gui = new GUI("Meslek Seçim Menüsü", $this);
-                $gui->addItemToList(Item::get(Item::WOODEN_AXE)->setCustomName("§6Oduncu\n\n§eOduncu mesleğini seçmek için envanterine sürükle."));
-                $gui->addItemToList(Item::get(Item::WOODEN_PICKAXE)->setCustomName("§6Madenci\n\n§eMadenci mesleğini seçmek için envanterine sürükle."));
-                $gui->addItemToList(Item::get(Item::SHEARS)->setCustomName("§6Bahçıvan\n\n§eBahçıvan mesleğini seçmek için envanterine sürükle."));
-                $gui->addItemToList(Item::get(Item::WOODEN_SWORD)->setCustomName("§6Katil\n\n§eKatil mesleğini seçmek için envanterine sürükle."));
-                $gui->addItemToList(Item::get(Item::WOODEN_SHOVEL)->setCustomName("§6Mezarcı\n\n§eMezarcı mesleğini seçmek için envanterine sürükle."));
+                $gui = new GUI($this->message["job-menu"], $this);
+                $gui->addItemToList(Item::get(Item::WOODEN_AXE)->setCustomName($this->message["woodcutter"]));
+                $gui->addItemToList(Item::get(Item::WOODEN_PICKAXE)->setCustomName($this->message["miner"]));
+                $gui->addItemToList(Item::get(Item::SHEARS)->setCustomName($this->message["gardener"]));
+                $gui->addItemToList(Item::get(Item::WOODEN_SWORD)->setCustomName($this->message["murder"]));
+                $gui->addItemToList(Item::get(Item::WOODEN_SHOVEL)->setCustomName($this->message["dirter"]));
                 $gui->sendTo($cs);
             }
         }
