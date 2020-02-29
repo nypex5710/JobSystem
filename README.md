@@ -10,11 +10,11 @@
     <th>Description</th>
   </tr>
   <tr>
-    <th>/meslek</th>
+    <th>/job</th>
     <th>Select job</th>
   </tr>
   <tr>
-    <th>/banka</th>
+    <th>/bank</th>
     <th>Take job money</th>
   </tr>
   </table>
