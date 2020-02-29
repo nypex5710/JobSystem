@@ -319,7 +319,7 @@ class JMain extends PluginBase implements Listener{
     }
 
     public function onCommand(CommandSender $cs, Command $cmd, string $label, array $args): bool{
-        if($cmd->getName() == "meslek"){
+        if($cmd->getName() == "job"){
             $meslekSahibimi = $this->db->query("SELECT * FROM jobPlayers WHERE player = '{$cs->getLowerCaseName()}'")->fetchArray(SQLITE3_ASSOC);
             if($meslekSahibimi){
                 $cs->sendMessage($this->message["already-select-job"]);
@@ -333,7 +333,7 @@ class JMain extends PluginBase implements Listener{
                 $gui->sendTo($cs);
             }
         }
-        if($cmd->getName() == "banka"){
+        if($cmd->getName() == "bank"){
           $this->bankMenu($cs);
         }
         return true;
