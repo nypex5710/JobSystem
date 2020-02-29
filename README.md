@@ -1,7 +1,7 @@
 <h1>JobSystem<img src="https://github.com/nypex5710/JobSystem/blob/master/logo.png" height="64" width="64" align="left"></img></h1>
 <br>
 <h1>Support Language</h1>
-- [✔] Turkish<br>
+- [✔] Multi Language<br>
 <BR>
 <h1>Commands</h1>
 <table>
