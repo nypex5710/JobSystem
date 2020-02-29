@@ -5,7 +5,7 @@ version: 1.0
 author: Nypex5710
 
 commands:
-  meslek:
-    description: Meslek Menüsünü Açar
-  banka:
-    description: Banka Menüsünü Açar
+  job:
+    description: Open job menu
+  bank:
+    description: Open bank menu
