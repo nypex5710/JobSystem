@@ -14,7 +14,7 @@
     <th>Select job</th>
   </tr>
   <tr>
-    <th>/bank</th>
+    <th>/banka</th>
     <th>Take job money</th>
   </tr>
   </table>
